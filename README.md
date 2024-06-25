@@ -1,10 +1,10 @@
-### class ControllerTeacher
+##### class ControllerTeacher
 
 SRP - Каждый метод класса имеет одну ответственную операцию
 
 В текущем коде имеются повторы (ввод ID преподавателя и обработка неверного ввода),можно создать отдельные методы для обработки ввода и проверки существования преподавателя по ID
 
-### interface InterfaceUserController
+##### interface InterfaceUserController
 
 SRP - определяет метод создания пользователя
 
