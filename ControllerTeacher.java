@@ -14,50 +14,59 @@ class ControllerTeacher implements InterfaceUserController<Teacher> {
         list.add(teacher);
     }
 
-   
-    public void modifyTeacher() {
-        System.out.println("Введите id преподавателя, которого хотите изменить: ");
-        int consol = scanner.nextInt();
-        scanner.nextLine();
+    private int getTeacherIdInput(String message) {
+        System.out.println(message);
+        return scanner.nextInt();
+    }
+
+    private Teacher findTeacherById(int id) {
         for (Teacher teacher : list) {
-            if (teacher.getTeacherID() == consol) {
-                System.out.println("Введите фамилию преподавателя: ");
-                String fName = scanner.nextLine();
-                teacher.setLastName(fName);
-                System.out.println("Введите имя преподавателя: ");
-                String name = scanner.nextLine();
-                teacher.setFirstName(name);
-                System.out.println("Введите отчество преподавателя: ");
-                String secondName = scanner.nextLine();
-                teacher.setSecondName(secondName);
-                System.out.println("Преподаватель изменен: " + teacher);
-                return;
+            if (teacher.getTeacherID() == id) {
+                return teacher;
             }
         }
-        System.out.println("Такого преподавателя нет, попробуйте еще раз");
-        modifyTeacher();
+        return null;
     }
 
-    public void removeTeacher(){
+    public void modifyTeacher() {
+        int id = getTeacherIdInput("Введите id преподавателя, которого хотите изменить: ");
+        scanner.nextLine();
+
+        Teacher teacher = findTeacherById(id);
+        if (teacher != null) {
+            System.out.println("Введите фамилию преподавателя: ");
+            teacher.setLastName(scanner.nextLine());
+
+            System.out.println("Введите имя преподавателя: ");
+            teacher.setFirstName(scanner.nextLine());
+
+            System.out.println("Введите отчество преподавателя: ");
+            teacher.setSecondName(scanner.nextLine());
+
+            System.out.println("Преподаватель изменен: " + teacher);
+        } else {
+            System.out.println("Такого преподавателя нет, попробуйте еще раз");
+            modifyTeacher();
+        }
+    }
+
+    public void removeTeacher() {
         printTeacherList();
-        System.out.println("Введите id преподавателя: ");
-        int consol = scanner.nextInt();
-            for (int i = 0; i < list.size(); i++){
-                if (list.get(i).getTeacherID() == consol){
-                    list.remove(i);
-                    System.out.println("Преодаватель удален");
+        int id = getTeacherIdInput("Введите id преподавателя: ");
 
-                    return;
-                }
-             }
-        System.out.println("Такого преподавателя нет, попробуйте еще раз");
-        removeTeacher();
+        Teacher teacher = findTeacherById(id);
+        if (teacher != null) {
+            list.remove(teacher);
+            System.out.println("Преподаватель удален");
+        } else {
+            System.out.println("Такого преподавателя нет, попробуйте еще раз");
+            removeTeacher();
+        }
     }
 
-    public void printTeacherList(){
+    public void printTeacherList() {
         for (Teacher teacher : list) {
             System.out.println(teacher);
-
         }
     }
 }
