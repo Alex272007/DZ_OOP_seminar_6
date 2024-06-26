@@ -14,11 +14,13 @@ class ControllerTeacher implements InterfaceUserController<Teacher> {
         list.add(teacher);
     }
 
+    // метод поиска преподавателя по ID
     private int getTeacherIdInput(String message) {
         System.out.println(message);
         return scanner.nextInt();
     }
 
+    // метод для обработки ввода
     private Teacher findTeacherById(int id) {
         for (Teacher teacher : list) {
             if (teacher.getTeacherID() == id) {
